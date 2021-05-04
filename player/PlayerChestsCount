@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerChestsCount : MonoBehaviour
+{
+    [SerializeField] private ChestSprite _closedChest;
+
+    private int _count;
+
+    private void Update()
+    {
+        if (_count == 10)
+        {
+            Debug.Log("You are winner!");
+            Time.timeScale = 0;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<ChestSprite>(out ChestSprite chestSprite))
+        {
+            if (chestSprite._closed == true)
+            {
+                _count++;
+                Debug.Log(_count);
+            }
+        }
+    }
+}
