@@ -6,11 +6,12 @@ public class PlayerChestsCount : MonoBehaviour
 {
     [SerializeField] private ChestSprite _closedChest;
 
-    private int _count;
+    private int _countChestsCollected;
+    private int _countChests;
 
     private void Update()
     {
-        if (_count == 10)
+        if (_countChestsCollected == _countChests)
         {
             Debug.Log("You are winner!");
             Time.timeScale = 0;
@@ -23,8 +24,8 @@ public class PlayerChestsCount : MonoBehaviour
         {
             if (chestSprite._closed == true)
             {
-                _count++;
-                Debug.Log(_count);
+                _countChestsCollected++;
+                Debug.Log(_countChestsCollected);
             }
         }
     }
