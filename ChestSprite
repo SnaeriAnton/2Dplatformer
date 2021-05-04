@@ -12,7 +12,7 @@ public class ChestSprite : MonoBehaviour
     private void Start()
     {
         _closed = true;
-        Debug.Log("Соберите 3 сундуков!");
+        Debug.Log("Соберите 10 сундуков!");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
