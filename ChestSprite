@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ChestSprite : MonoBehaviour
+{
+    [SerializeField] private SpriteRenderer _spriteRenderOpened;
+    [SerializeField] private Sprite _spriteRenderClosed;
+
+    public bool _closed { get; private set; }
+
+    private void Start()
+    {
+        _closed = true;
+        Debug.Log("Соберите 3 сундуков!");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<PlayerMove>(out PlayerMove playerMove))
+        {
+            _spriteRenderOpened.sprite = _spriteRenderClosed;
+        }
+    }
+
+    public void CloseChest(bool statusChest)
+    {
+        _closed = statusChest;
+    }
+}
