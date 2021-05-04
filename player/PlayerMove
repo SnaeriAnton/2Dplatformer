@@ -1,0 +1,46 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerMove : MonoBehaviour
+{
+    [SerializeField] private Rigidbody2D _rigidbody2D;
+    [SerializeField] private float _speed;
+    [SerializeField] private SpriteRenderer _spriteRender;
+    [SerializeField] private Animator _animator;
+
+    private float _idle = 0;
+
+    private void FixedUpdate()
+    {
+        _rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            Walk(true, 1);
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            Walk(false, -1);
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            _rigidbody2D.velocity = new Vector2(0, 1 * _speed);
+        }
+
+        if (Input.anyKey == false)
+        {
+            _animator.SetFloat("_speed", _idle);
+        }
+    }
+
+    private void Walk(bool flip, int turn)
+    {
+        _spriteRender.flipX = flip;
+        _rigidbody2D.velocity = new Vector2((_speed) * turn, 0);
+        _animator.SetFloat("_speed", _speed);
+    }
+}
