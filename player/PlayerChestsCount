@@ -6,7 +6,7 @@ public class PlayerChestsCount : MonoBehaviour
 {
     [SerializeField] private ChestSprite _closedChest;
 
-    private int _countChestsCollected;
+    private int _countChestsCollected = 10;
     private int _countChests;
 
     private void Update()
