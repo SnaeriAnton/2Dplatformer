@@ -6,7 +6,8 @@ public class EnemyMove : MonoBehaviour
 {
     [SerializeField] private Transform _onePoint;
     [SerializeField] private Transform _twoPoint;
-    [SerializeField] private GameObject _gameObject;
+    [SerializeField] private Rigidbody2D _rigidBody2D;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private float _speed;
 
     private int _direction = 1;
@@ -15,8 +16,8 @@ public class EnemyMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _gameObject.GetComponent<Rigidbody2D>().velocity = (transform.right * _speed) * _direction;
-        _gameObject.GetComponent<SpriteRenderer>().flipX = _turn;
+        _rigidBody2D.velocity = (transform.right * _speed) * _direction;
+        _spriteRenderer.flipX = _turn;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
