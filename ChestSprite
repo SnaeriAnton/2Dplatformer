@@ -7,7 +7,8 @@ public class ChestSprite : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderOpened;
     [SerializeField] private Sprite _spriteRenderClosed;
 
-    public bool _closed { get; private set; }
+    private bool _closed;
+    public bool _closedStatus => _closed;
 
     private void Start()
     {
@@ -23,8 +24,8 @@ public class ChestSprite : MonoBehaviour
         }
     }
 
-    public void CloseChest(bool statusChest)
+    public void CloseChest()
     {
-        _closed = statusChest;
+        _closed = false;
     }
 }
