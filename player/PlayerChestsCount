@@ -9,25 +9,26 @@ public class PlayerChestsCount : MonoBehaviour
     private int _countChestsCollected;
     private int _countChests = 10;
 
-    private void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<ChestSprite>(out ChestSprite chestSprite))
+        {
+            if (chestSprite._closedStatus == true)
+            {
+                _countChestsCollected++;
+                chestSprite.CloseChest();
+                Debug.Log(_countChestsCollected);
+                CheckWin();
+            }
+        }
+    }
+
+    private void CheckWin()
     {
         if (_countChestsCollected == _countChests)
         {
             Debug.Log("You are winner!");
             Time.timeScale = 0;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<ChestSprite>(out ChestSprite chestSprite))
-        {
-            if (chestSprite._closed == true)
-            {
-                _countChestsCollected++;
-                chestSprite.CloseChest(false);
-                Debug.Log(_countChestsCollected);
-            }
         }
     }
 }
