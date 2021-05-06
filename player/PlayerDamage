@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerDamage : MonoBehaviour
 {
+    [SerializeField] private Transform _enemy;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Pirate")
+        if (collision.gameObject.tag == _enemy.tag)
         {
             Debug.Log("GameOver");
             Time.timeScale = 0;
