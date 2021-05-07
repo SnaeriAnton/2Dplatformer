@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerAnimation : MonoBehaviour
+{
+    private Animator _animator;
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+    }
+
+    public void RunPlayer(float speed)
+    {
+        MovePlayer(speed);
+    }
+
+    public void IdlePlayer(float idle)
+    {
+        MovePlayer(idle);
+    }
+
+    private void MovePlayer(float moveSpeed)
+    {
+        _animator.SetFloat("_speed", moveSpeed);
+    }
+}
