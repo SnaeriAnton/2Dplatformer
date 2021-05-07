@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyMove : MonoBehaviour
+{
+    [SerializeField] private Rigidbody2D _rigidBody2D;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private float _speed;
+
+    private int _direction = 1;
+    private bool _turn = true;
+
+
+    private void FixedUpdate()
+    {
+        _rigidBody2D.velocity = (transform.right * _speed) * _direction;
+        _spriteRenderer.flipX = _turn;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<TwoPoint>(out TwoPoint twoPoint))
+        {
+            _direction = -1;
+            _turn = false;
+        }
+        if (collision.TryGetComponent<OnePoint>(out OnePoint onepoint))
+        {
+            _direction = 1;
+            _turn = true;
+        }
+    }
+}
