@@ -1,34 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CollectionChests : MonoBehaviour
 {
-    private ChestSprite[] _countChests;
+    private Chest[] _chests;
     private int _countChestsCollected;
 
-    private void OnEnable()
+    private void Awake()
     {
-        _countChests = gameObject.GetComponentsInChildren<ChestSprite>();
-        Debug.Log($"Соберите {_countChests.Length} сундуков!");
-    }
+        _chests = gameObject.GetComponentsInChildren<Chest>();
+        Debug.Log($"Соберите {_chests.Length} сундуков!");
 
-    public void Collection(bool statusChest)
-    {
-        if (statusChest == true)
+        foreach (var chest in _chests)
         {
-            _countChestsCollected++;
-            Debug.Log(_countChestsCollected);
-            CheckWin();
+            chest.Closed += OnChestClosed;
         }
     }
 
-    private void CheckWin()
+    private void OnDisable()
     {
-        if (_countChestsCollected == _countChests.Length)
+        foreach (var chest in _chests)
         {
-            Debug.Log("You are winner!");
-            Time.timeScale = 0;
+            chest.Closed -= OnChestClosed;
         }
+    }
+
+    private void OnChestClosed()
+    {
+        _countChestsCollected++;
+        Debug.Log("Собрано: " + _countChestsCollected + " сундуков.");
+        foreach (var chest in _chests)
+        {
+            if (chest.IsClosed == false)
+            {
+                return;
+            }
+        }
+
+        Debug.Log("You are winner!");
+        Time.timeScale = 0;
     }
 }
