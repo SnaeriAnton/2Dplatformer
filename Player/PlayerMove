@@ -2,14 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private float _speed;
     [SerializeField] private SpriteRenderer _spriteRender;
     [SerializeField] private PlayerAnimation _playerAnimation;
 
+    private Rigidbody2D _rigidbody2D;
     private float _idle = 0;
+
+    private void Start()
+    {
+        _rigidbody2D = GetComponent<Rigidbody2D>();  
+    }
 
     private void FixedUpdate()
     {
@@ -26,6 +32,7 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             _rigidbody2D.velocity = new Vector2(0, 1 * _speed);
+            _playerAnimation.RunPlayer(_speed);
         }
 
         if (Input.anyKey == false)
