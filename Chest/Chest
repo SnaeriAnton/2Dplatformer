@@ -17,7 +17,6 @@ public class Chest : MonoBehaviour
 
     public bool IsClosed { get; private set; }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (IsClosed)
@@ -30,7 +29,6 @@ public class Chest : MonoBehaviour
         {
             IsClosed = true;
             _closed?.Invoke();
-
         }
     }
 }
