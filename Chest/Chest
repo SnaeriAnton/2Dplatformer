@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+public class Chest : MonoBehaviour
+{
+    [SerializeField] private UnityEvent _closed = new UnityEvent();
+
+    private bool _isClosed;
+
+    public event UnityAction Closed
+    {
+        add => _closed.AddListener(value);
+        remove => _closed.RemoveListener(value);
+    }
+
+    public bool IsClosed { get; private set; }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (IsClosed)
+        {
+            Debug.Log("Сундук закрыт");
+            return;
+        }
+
+        if (collision.TryGetComponent<PlayerMove>(out PlayerMove playerMove))
+        {
+            IsClosed = true;
+            _closed?.Invoke();
+
+        }
+    }
+}
