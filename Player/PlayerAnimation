@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class PlayerAnimation : MonoBehaviour
 {
+    private const string _animatorSpeed = "Speed";
     private Animator _animator;
 
     private void Start()
@@ -23,6 +25,6 @@ public class PlayerAnimation : MonoBehaviour
 
     private void MovePlayer(float moveSpeed)
     {
-        _animator.SetFloat("_speed", moveSpeed);
+        _animator.SetFloat(_animatorSpeed, moveSpeed);
     }
 }
