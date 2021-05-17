@@ -19,14 +19,6 @@ public class CollectionChests : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        foreach (var chest in _chests)
-        {
-            chest.Closed -= OnChestClosed;
-        }
-    }
-
     private void OnChestClosed()
     {
         _countChestsCollected++;
@@ -35,6 +27,7 @@ public class CollectionChests : MonoBehaviour
         {
             if (chest.IsClosed == false)
             {
+                chest.Closed -= OnChestClosed;
                 return;
             }
         }
